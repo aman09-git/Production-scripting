@@ -1,115 +1,226 @@
-# 🚀 AWS NAT Gateway Audit & Cleanup Script
+# 🚀 DevOps Automation Scripts Collection
 
-## 🔍 Overview
+A curated collection of **real-world DevOps & Cloud automation scripts** designed for monitoring, security, cost optimization, and operational efficiency.
 
-This project provides a **production-ready Bash script** to identify, review, and clean up unused AWS NAT Gateways — helping reduce unnecessary cloud costs.
+These scripts are built with a **production mindset**, focusing on:
 
-NAT Gateways can silently increase AWS billing if left unused. This script ensures **visibility + controlled cleanup**.
-
----
-
-## 🎯 Key Features
-
-✅ Fetch all NAT Gateways in a region
-✅ Identify **active (costing)** NAT Gateways
-✅ Detect **unused / deleted / failed** NAT Gateways
-✅ Clear separation of results using `##########`
-✅ Manual confirmation before deletion (safe for production)
-✅ Easy to extend for multi-region automation
+* Reusability
+* Safety (dry-run, validation)
+* Observability (logging & alerts)
+* Interview & real-world readiness
 
 ---
 
-## 🛠️ Tech Stack
+## 📂 Scripts Included
 
-* 🐚 Bash Scripting
-* ☁️ AWS CLI
-* 🧩 jq (JSON parsing)
+### 1. 🔥 Automated EC2 Backup Script
+
+Automates **EBS snapshot creation** for EC2 instances.
+
+**Key Features:**
+
+* Backup all attached volumes
+* Tag-based identification
+* Reusable across regions
+* Supports automation via cron
 
 ---
 
-## ⚙️ Prerequisites
+### 2. ⚙️ Auto Scaling Health Check Script
 
-Make sure you have:
+Ensures **self-healing infrastructure** in Auto Scaling Groups.
+
+**Key Features:**
+
+* Monitors instance health & state
+* Marks unhealthy instances
+* Waits (grace period) before action
+* Safe termination with re-validation
+
+---
+
+### 3. 📦 Log Rotation & Cleanup Script
+
+Manages log files efficiently to prevent disk issues.
+
+**Key Features:**
+
+* Size-based log rotation
+* Compression for storage optimization
+* Retention-based cleanup
+* Safe handling of active logs
+
+---
+
+### 4. 🌐 Website / API Health Monitoring Script
+
+Monitors availability of websites or APIs.
+
+**Key Features:**
+
+* HTTP status code validation
+* Retry mechanism to avoid false alerts
+* Logging for downtime tracking
+* Easily extendable to alerts (Slack/SNS)
+
+---
+
+### 5. 🔐 SSL Certificate Expiry Checker
+
+Prevents downtime due to expired SSL certificates.
+
+**Key Features:**
+
+* Fetches certificate expiry date
+* Calculates remaining validity
+* Threshold-based alerting
+* Supports any domain
+
+---
+
+### 6. 📊 Server Resource Monitoring Script
+
+Tracks system performance in real-time.
+
+**Key Features:**
+
+* CPU, Memory, Disk monitoring
+* Threshold-based alerting
+* Logging for critical events
+* Lightweight and cron-friendly
+
+---
+
+### 7. 🔑 IAM Access Key Rotation Script
+
+Enhances security by rotating IAM access keys.
+
+**Key Features:**
+
+* Detects old access keys
+* Dry-run and safe rotation mode
+* Creates new keys & deactivates old ones
+* Supports secure automation practices
+
+---
+
+### 8. 🧹 Unused Resource Cleanup Script
+
+Optimizes cloud costs by removing unused resources.
+
+**Key Features:**
+
+* Tag-based safe deletion (`Cleanup=true`)
+* Dry-run and confirmation mode
+* Multi-resource cleanup:
+
+  * EBS Volumes
+  * Elastic IPs
+  * Snapshots
+  * AMIs
+  * Network Interfaces
+
+---
+
+### 9. 🌉 NAT Gateway Usage Check & Cleanup Script
+
+Identifies and removes unused NAT Gateways to reduce costs.
+
+**Key Features:**
+
+* Detects NAT Gateways with no active traffic
+* Validates usage before deletion
+* Supports dry-run mode
+* Prevents accidental deletion
+
+---
+
+## 🛠️ Prerequisites
+
+* AWS CLI configured (`aws configure`)
+* Required IAM permissions based on script usage
+* Linux environment (recommended)
+* Tools:
+
+  * `jq` (for JSON parsing, if applicable)
+  * `bc` (for calculations)
+  * `curl`, `openssl`
+
+---
+
+## ▶️ Usage
+
+Make script executable:
 
 ```bash
-aws configure
-jq installed
+chmod +x script.sh
 ```
 
----
-
-## 🚀 How to Use
+Run script:
 
 ```bash
-chmod +x NAT.sh
-./NAT.sh <region>
+./script.sh <arguments>
 ```
 
-### Example:
+Each script contains:
 
-```bash
-./NAT.sh ap-south-1
-```
-
----
-
-## 📊 Sample Output
-
-```bash
-########## NAT GATEWAYS IN USE (COSTING MONEY) ##########
-NAT_ID: nat-12345 | SUBNET: subnet-abc | VPC: vpc-xyz
-------------------------------------------------------
-Total NAT Gateways IN USE: 1
-
-########## UNUSED / DELETED NAT GATEWAYS ##########
-NAT_ID: nat-67890 | STATE: deleted
-------------------------------------------------------
-Total UNUSED NAT Gateways: 1
-```
+* Input details
+* Execution example
+* Expected output
 
 ---
 
 ## ⚠️ Important Notes
 
-* This script **does NOT automatically delete active NAT Gateways**
-* Always review before deletion
-* Ensure no production workload depends on NAT before removing
+* Always use **dry-run mode** before actual execution
+* Ensure proper **IAM permissions**
+* Test in **non-production environments first**
+* Use **tag-based filtering** for safe operations
 
 ---
 
-## 💡 Real-World Use Case
+## 💡 Best Practices Followed
 
-* Cloud cost optimization 💰
-* Infrastructure cleanup 🧹
-* Audit before production changes 🔍
-
----
-
-## 🚧 Future Enhancements
-
-* Multi-region support 🌍
-* Tag-based filtering (prod/dev)
-* Cost estimation integration
-* Slack / Email alerts
+* Input validation
+* Error handling
+* Logging for observability
+* Modular and reusable functions
+* Production-safe approaches
 
 ---
 
-## 👨‍💻 Author
+## 🧠 Learning Outcome
 
-**Aman Srivastava**
+This repository helps you:
 
-Devops Engineer | Cloud | Automation
-
----
-
-## ⭐ Support
-
-If you found this useful:
-
-* ⭐ Star the repo
-* 🔁 Share with your network
-* 💬 Connect for collaboration
+* Understand **real-world DevOps automation**
+* Build **production-ready scripts**
+* Prepare for **DevOps & SRE interviews**
+* Create a strong **GitHub portfolio**
 
 ---
 
-> ⚡ "Automate smartly, save costs, and build scalable cloud systems."
+## 🚀 Future Enhancements
+
+* Integration with alerting systems (Slack, Email, SNS)
+* Event-driven automation (Lambda, EventBridge)
+* Dashboard-based monitoring
+* Multi-account automation
+
+---
+
+## 🤝 Contribution
+
+Feel free to:
+
+* Enhance scripts
+* Add new automation use cases
+* Improve security & performance
+
+---
+
+## ⭐ Final Thought
+
+> “Automation is not just about making things work — it’s about making them safe, scalable, and reliable.”
+
+---
